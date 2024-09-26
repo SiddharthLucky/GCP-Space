@@ -1,3 +1,6 @@
+options:
+  logging: 'NONE'
+
 steps:
   # Step 1 Authenticate Service Account
   # For Commit purpose
