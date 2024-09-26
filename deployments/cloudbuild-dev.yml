@@ -11,7 +11,7 @@ steps:
       - '-c'
       - |
         echo "$$SERVICE_ACCOUNT_KEY" > /tmp/key.json
-        gcloud auth activate-service-account poc-serviceaccount --key-file=/tmp/key.json
+        gcloud auth activate-service-account poc-terraform-user1@account-manager-435205.iam.gserviceaccount.com --key-file=/tmp/key.json
 
     # Map the secret to an environment variable
     secretEnv:
