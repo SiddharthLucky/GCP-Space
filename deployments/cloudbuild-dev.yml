@@ -29,10 +29,10 @@ steps:
 
   # Step 4: Deploy with Cloud Run
   - id: 'Deploy to Cloud Run'
-    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    name: 'gcr.io/cloud-builders/gcloud'
     args:
       [
-        'run', 'deploy', 'cloud_run_service',
+        'run', 'deploy', 'poc_cloudrun_service',
         '--image', 'us-central1-docker.pkg.dev/account-manager-435205/lucky-ar-space/cloud-build-image:latest',
         '--region', 'us-central1',
         '--platform', 'managed',
