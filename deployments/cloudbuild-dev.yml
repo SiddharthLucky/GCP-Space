@@ -32,7 +32,7 @@ steps:
     name: 'gcr.io/cloud-builders/gcloud'
     args:
       [
-        'run', 'deploy', 'poc_cloudrun_service',
+        'run', 'deploy', 'cloudrun-poc-service',
         '--image', 'us-central1-docker.pkg.dev/account-manager-435205/lucky-ar-space/cloud-build-image:latest',
         '--region', 'us-central1',
         '--platform', 'managed',
