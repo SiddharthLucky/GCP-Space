@@ -34,8 +34,7 @@ steps:
         '--allow-unauthenticated'
       ]
 
-secrets:
-  - secretEnv: ['SERVICE_ACCOUNT_KEY']
-    projectId: "517171092657"                  # Your GCP Project ID
-    secret: "POCaccount-Secret"                # The name of the secret in Secret Manager
-    version: "latest"                          # The version of the secret to use                                       # Specify the version
+availableSecrets:
+  secretManager:
+    - versionName: "projects/517171092657/secrets/POCaccount-Secret/versions/latest" # The full path to your secret version
+      env: "SERVICE_ACCOUNT_KEY"  # The environment variable that will be set with the secret value                # Specify the version
