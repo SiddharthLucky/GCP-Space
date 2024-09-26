@@ -10,7 +10,7 @@ steps:
     args:
       - '-c'
       - |
-        echo $SERVICE_ACCOUNT_KEY | base64 -d > /tmp/key.json
+        echo $$SERVICE_ACCOUNT_KEY | base64 -d > /tmp/key.json
         gcloud auth activate-service-account poc-serviceaccount --key-file=/tmp/key.json
 
     secretEnv: ['SERVICE_ACCOUNT_KEY']
