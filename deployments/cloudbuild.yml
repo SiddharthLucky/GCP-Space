@@ -1,0 +1,40 @@
+steps:
+  # Step 1 Authenticate Service Account
+  - id: 'Authenticate Service Account'
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo $SERVICE_ACCOUNT_KEY | base64 -d > /tmp/key.json
+        gcloud auth activate-service-account poc-serviceaccount --key-file=/tmp/key.json
+
+    secretEnv: ['SERVICE_ACCOUNT_KEY']
+
+  # Step 2: Build the Docker image
+  - id: 'Build Docker Image'
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/account-manager-435205/lucky-ar-space/cloud-build-image:latest', '.']
+
+  # Step 3: Push Docker image to Artifact Registry
+  - id: 'Push Image to Artifact Registry'
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['push' , 'us-central1-docker.pkg.dev/account-manager-435205/lucky-ar-space/cloud-build-image:latest']
+
+  # Step 4: Deploy with Cloud Run
+  - id: 'Deploy to Cloud Run'
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args:
+      [
+        'run', 'deploy', 'cloud_run_service',
+        '--image', 'us-central1-docker.pkg.dev/account-manager-435205/lucky-ar-space/test-image:latest',
+        '--region', 'us-central1',
+        '--platform', 'managed',
+        '--allow-unauthenticated'
+      ]
+
+secrets:
+  - name: SERVICE_ACCOUNT_KEY
+    manager:
+      name: projects/517171092657/secrets/POCaccount-Secret  # Use the full resource name
+      version: latest                                        # Specify the version
