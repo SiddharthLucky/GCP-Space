@@ -10,10 +10,12 @@ steps:
     args:
       - '-c'
       - |
-        echo $$SERVICE_ACCOUNT_KEY | base64 -d > /tmp/key.json
+        echo "$$SERVICE_ACCOUNT_KEY" > /tmp/key.json
         gcloud auth activate-service-account poc-serviceaccount --key-file=/tmp/key.json
 
-    secretEnv: ['SERVICE_ACCOUNT_KEY']
+    # Map the secret to an environment variable
+    secretEnv:
+      - 'SERVICE_ACCOUNT_KEY'
 
   # Step 2: Build the Docker image
   - id: 'Build Docker Image'
@@ -39,5 +41,5 @@ steps:
 
 availableSecrets:
   secretManager:
-    - versionName: "projects/517171092657/secrets/POCaccount-Secret/versions/latest" # The full path to your secret version
-      env: "SERVICE_ACCOUNT_KEY"  # The environment variable that will be set with the secret value                # Specify the version
+    - versionName: 'projects/517171092657/secrets/POCaccount-Secret/versions/latest'
+      env: 'SERVICE_ACCOUNT_KEY'
