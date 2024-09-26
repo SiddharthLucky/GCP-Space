@@ -1,5 +1,6 @@
 steps:
   # Step 1 Authenticate Service Account
+  # For Commit purpose
   - id: 'Authenticate Service Account'
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest'
     entrypoint: 'bash'
