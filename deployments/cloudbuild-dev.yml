@@ -35,7 +35,7 @@ steps:
       ]
 
 secrets:
-  - name: SERVICE_ACCOUNT_KEY
-    manager:
-      name: projects/517171092657/secrets/POCaccount-Secret  # Use the full resource name
-      version: latest                                        # Specify the version
+  - secretEnv: ['SERVICE_ACCOUNT_KEY']
+    projectId: "517171092657"                  # Your GCP Project ID
+    secret: "POCaccount-Secret"                # The name of the secret in Secret Manager
+    version: "latest"                          # The version of the secret to use                                       # Specify the version
